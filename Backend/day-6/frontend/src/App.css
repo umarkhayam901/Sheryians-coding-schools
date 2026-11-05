@@ -1,0 +1,300 @@
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #1e293b;
+  background: #f1f5f9;
+  font-synthesis: none;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+/* Main Layout */
+.app {
+  width: 100%;
+  max-width: 1150px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* Header */
+.app-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.app-header h1 {
+  color: #1d4ed8;
+  font-size: 38px;
+  margin: 0 0 10px;
+}
+
+.app-header p {
+  color: #64748b;
+  font-size: 15px;
+}
+
+/* Form Section */
+.form-section {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  padding: 28px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+.form-section h2 {
+  margin-top: 0;
+  margin-bottom: 22px;
+  color: #0f172a;
+  font-size: 23px;
+}
+
+.form-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 13px 15px;
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* Buttons */
+button {
+  padding: 11px 17px;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(0.92);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.add-btn {
+  background: #2563eb;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.update-btn {
+  background: #2563eb;
+}
+
+.delete-btn {
+  background: #dc2626;
+}
+
+.save-btn {
+  background: #16a34a;
+}
+
+.cancel-btn {
+  background: #64748b;
+}
+
+/* Messages */
+.message {
+  max-width: 700px;
+  margin: 15px auto;
+  padding: 13px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.error-message {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.success-message {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Notes Section */
+.notes-section {
+  margin-top: 35px;
+}
+
+.notes-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.notes-heading h2 {
+  margin: 0;
+  font-size: 25px;
+  color: #0f172a;
+}
+
+.notes-count {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Notes Grid */
+.notes-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.note-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  overflow-wrap: anywhere;
+}
+
+.note-card h3 {
+  margin: 0 0 14px;
+  color: #1e40af;
+  font-size: 20px;
+}
+
+.note-description {
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  flex: 1;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.card-actions button {
+  flex: 1;
+  min-width: 90px;
+}
+
+.edit-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-section textarea {
+  min-height: 100px;
+}
+
+/* Empty State */
+.empty-message {
+  text-align: center;
+  background: #ffffff;
+  padding: 35px 20px;
+  border-radius: 12px;
+  color: #64748b;
+}
+
+/* Footer */
+.app-footer {
+  margin-top: 50px;
+  padding: 20px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .notes-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .app {
+    padding: 20px 15px;
+  }
+
+  .app-header h1 {
+    font-size: 29px;
+  }
+
+  .form-section {
+    padding: 20px;
+  }
+
+  .notes-container {
+    grid-template-columns: 1fr;
+  }
+
+  .notes-heading h2 {
+    font-size: 21px;
+  }
+}
