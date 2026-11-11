@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
-const API_URL = "http://localhost:3000/api/notes";
+const API_URL = "https://sheryians-coding-schools-1.onrender.com/api/notes";
 
 function App() {
   const [notes, setNotes] = useState([]);
