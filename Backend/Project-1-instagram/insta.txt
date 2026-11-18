@@ -1,0 +1,21 @@
+Authentication => 
+ register, {1: user data ko DB me save karna.  2: user ko token dena  } 
+ login, 
+ logout
+
+post => 
+create,
+can see the feed,
+like post,
+save post
+
+user =>
+followers
+following
+
+userschema : 
+username,
+email,
+pasword,
+bio,
+profileImage
