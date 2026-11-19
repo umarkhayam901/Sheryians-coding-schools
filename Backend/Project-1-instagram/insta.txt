@@ -1,13 +1,33 @@
 Authentication => 
- register, {1: user data ko DB me save karna.  2: user ko token dena  } 
- login, 
+ register, {1: user data ko DB me save karna.  2: user ko token dena  }   
+ login,   {1:email, password check. 2user ko new token dena  }
  logout
+[OTP : Optional ]
 
-post => 
+auth.Schema { 
+    username
+    email
+    password
+    bio
+    profileImage
+}
+ shah shanawaz 
+
+
+post =>    
 create,
 can see the feed,
 like post,
 save post
+
+post.Schema{
+    caption
+    postImg
+    userid
+}
+
+
+
 
 user =>
 followers
