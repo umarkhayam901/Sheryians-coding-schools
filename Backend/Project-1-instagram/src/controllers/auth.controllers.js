@@ -97,7 +97,7 @@ async function loginController(req,res){
         id : user._id,
     },process.env.JWT_SECRET,{expiresIn : "1d"})
 
-    res.cookie("Token",token)
+    res.cookie("token",token)
     res.status(200).json({
         message : "User login Succcesfully",
         user :{
