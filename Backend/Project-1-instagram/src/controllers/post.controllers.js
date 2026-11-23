@@ -1,7 +1,7 @@
 const { ImageKit, toFile } = require("@imagekit/nodejs");
 const postModel = require("../models/post.models");
 const jwt = require("jsonwebtoken");
-const { post } = require("../routes/post.routes");
+const likeModel = require("../models/likes.models");
 
 
 const client = new ImageKit({
@@ -10,29 +10,6 @@ const client = new ImageKit({
 
 
 async function createPostController(req, res) {
-
-
-    const token = req.cookies.token
-
-    if(!token){
-        return res.status(201).json({
-            message : "Token not Found, Unauthorized access "
-        })
-    }
-
-
-    let decoded = null;
-
-    try{
-    decoded = await jwt.verify(token, process.env.JWT_SECRET)
-}catch(err){
-
-    return res.status(401).json({
-        message : "invalid token, unauthorized"
-    })
-}
-    console.log(decoded);
-
 
     const imageFile = await toFile(
         req.file.buffer,
@@ -46,13 +23,10 @@ async function createPostController(req, res) {
         folder: "/instagram/posts"
     });
 
-   
-
-
    const post = await postModel.create({
         caption : req.body.caption,
         imgUrl : file.url,
-        user : decoded.id
+        user : req.user.id
     })
 
     res.status(201).json({
@@ -63,21 +37,7 @@ async function createPostController(req, res) {
 
 async  function getAllPostController(req,res){
 
-
-    const token = req.cookies.token
-
-    let decoded ;
-    try{
-          decoded =   jwt.verify(token,process.env.JWT_SECRET)
-    }catch(err){
-        return res.status(401).json({
-            message : "unauthorized access"
-        })
-    }
-   
-
-
-    const userId = decoded.id
+    const userId = req.user.id;
 
    const post  = await postModel.find({
     user : userId
@@ -91,24 +51,8 @@ async  function getAllPostController(req,res){
 
 async function postDetailsController(req,res){
 
-    const token =  req.cookies.token
 
-    if(!token){
-        return res.status(401).json({
-            message : "Unauthorized, Token Not Found  "
-        })
-    }
-
-    let decoded ;
-    try{
-        decoded = jwt.verify(token,process.env.JWT_SECRET)
-    }catch(err){
-        return res.status(401).json({
-            message : "Invalid Token"
-        })
-    }
-
-    const userId = decoded.id;
+    const userId = req.user.id;
     const postId = req.params.postId
 
 
@@ -134,13 +78,38 @@ async function postDetailsController(req,res){
     post,
    })
 
+}
+
+async function postlikesController(req, res) {
+
+    const userId = req.user.username;
+    const postId = req.params.postId;
+
+    const post = await postModel.findById(postId);
+
+    if(!post){
+        return res.status(404).json({
+            message : "Post Not Found"
+        })
+    }
 
 
+    const isliked= await likeModel.create({
+        user:userId,
+        post:postId
+    })
+    res.status(200).json({
+        message : "Post liked Succesfully",
+        isliked,
+    })
+
+  
 
 }
 
 module.exports = {
     createPostController,
     getAllPostController,
-    postDetailsController
+    postDetailsController,
+    postlikesController
 };
