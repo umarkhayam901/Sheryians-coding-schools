@@ -67,7 +67,86 @@ async function unfollowController(req, res) {
         unfollowRecord
     });
 }
+
+async function acceptFollowController(req, res) {
+
+    const followerUser = req.params.username;
+    const followeeUser = req.user.username;
+
+    const followRecord = await followModel.findOne({
+        followers: followerUser,
+        followee: followeeUser
+    });
+
+    if (!followRecord) {
+        return res.status(404).json({
+            message: "Follow record not found"
+        });
+    }
+
+    if (followRecord.status === "accepted") {
+        return res.status(409).json({
+            message: "Follow request already accepted"
+        });
+    }
+
+    if (followRecord.status === "rejected") {
+        return res.status(409).json({
+            message: "Follow request already rejected"
+        });
+    }
+
+    followRecord.status = "accepted";
+
+    await followRecord.save();
+
+    return res.status(200).json({
+        message: "Follow request accepted successfully",
+        followRecord
+    });
+}
+
+async function rejectFollowController(req, res) {
+
+    const followerUser = req.params.username;
+    const followeeUser = req.user.username;
+
+    const followRecord = await followModel.findOne({
+        followers: followerUser,
+        followee: followeeUser
+    });
+
+    if (!followRecord) {
+        return res.status(404).json({
+            message: "Follow record not found"
+        });
+    }
+
+    if (followRecord.status === "rejected") {
+        return res.status(409).json({
+            message: "Follow request already rejected"
+        });
+    }
+
+    if (followRecord.status === "accepted") {
+        return res.status(409).json({
+            message: "Follow request already accepted"
+        });
+    }
+
+    followRecord.status = "rejected";
+
+    await followRecord.save();
+
+    return res.status(200).json({
+        message: "Follow request rejected successfully",
+        followRecord
+    });
+}
+
 module.exports = {
     userControllers,
-    unfollowController
+    unfollowController,
+    acceptFollowController,
+    rejectFollowController
 }
